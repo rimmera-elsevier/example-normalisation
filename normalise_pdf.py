@@ -37,15 +37,15 @@ def generate_normalised_html_from_pdf_file(pdf_file_name):
         meta(name="id", content="https://example.com/minimal")
         meta(name="dct:conformsTo", content="http://data.elsevier.com/schema/led/")
         script(
-            type="application/ld+json",
-            text_content=raw("""{
+            raw("""{
             "@context": ["https://data.elsevier.com/schema/led/", {"doc": "https://example.com/minimal#"}],
             "@id": "https://example.com/minimal",
             "dct:conformsTo": ["https://data.elsevier.com/schema/led/", "https://data.elsevier.com/schema/edm/"]
-          }""")
+            }"""),
+            type="application/ld+json",
         )
 
     with html_doc:
         section(text_content)
 
-    return html_doc.render().replace("<title></title>\n", "")  # Hack to remove unwanted title
+    return html_doc.render(pretty=True).replace("<title></title>\n", "")  # Hack to remove unwanted title
