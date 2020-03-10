@@ -8,6 +8,7 @@ authors = ["Andy Rimmer <rimmera@science.regn.net>"]
 python = "^3.8"
 pylatex = "*"
 pdfminer-six = "*"
+dominate = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"
