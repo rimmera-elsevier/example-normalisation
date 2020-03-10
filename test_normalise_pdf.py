@@ -1,3 +1,4 @@
+import html.parser
 import generate_pdf
 import normalise_pdf
 
@@ -11,4 +12,6 @@ def test_can_generate_single_sentence_pdf_file_and_convert_to_normalised_html5()
         content
     )
 
-    print(normalise_pdf.generate_normalised_html_from_pdf_file(file_name))
+    normalised_html = normalise_pdf.generate_normalised_html_from_pdf_file(file_name)
+
+    html.parser.HTMLParser

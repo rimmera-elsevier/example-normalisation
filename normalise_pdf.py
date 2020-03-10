@@ -48,4 +48,4 @@ def generate_normalised_html_from_pdf_file(pdf_file_name):
     with html_doc:
         section(text_content)
 
-    return html_doc.render(pretty=True).replace("<title></title>\n", "")  # Hack to remove unwanted title
+    return html_doc.render(pretty=True).replace("<title></title>", "")  # Hack to remove unwanted title

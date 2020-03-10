@@ -9,6 +9,7 @@ python = "^3.8"
 pylatex = "*"
 pdfminer-six = "*"
 dominate = "*"
+beautifulsoup4 = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"
