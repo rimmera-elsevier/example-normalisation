@@ -29,7 +29,6 @@ def generate_normalised_html_from_pdf_file(pdf_file_name):
     </html>
     """
     text_content = extract_text_from_pdf(pdf_file_name)
-    print(text_content)
     html_doc = dominate.document(title="")
 
     with html_doc.head:

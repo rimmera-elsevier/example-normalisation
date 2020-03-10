@@ -1,4 +1,4 @@
-import html.parser
+from bs4 import BeautifulSoup
 import generate_pdf
 import normalise_pdf
 
@@ -14,4 +14,9 @@ def test_can_generate_single_sentence_pdf_file_and_convert_to_normalised_html5()
 
     normalised_html = normalise_pdf.generate_normalised_html_from_pdf_file(file_name)
 
-    html.parser.HTMLParser
+    # print(normalised_html)
+    soup = BeautifulSoup(normalised_html, 'html.parser')
+    section = soup.section
+    print(section.string)
+    print(type(section.string))
+    assert content in str(section.string) # Failing because of fi glyph match??
