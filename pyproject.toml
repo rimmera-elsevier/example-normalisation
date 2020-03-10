@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "example-normalisation"
+version = "0.1.0"
+description = "Simple example of converting PDF to normalised HTML5"
+authors = ["Andy Rimmer <rimmera@science.regn.net>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pylatex = "*"
+pdfminer-six = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^4.6"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
