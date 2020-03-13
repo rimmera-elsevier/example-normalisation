@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<!-- <link href="http://purl.org/dc/terms/" rel="schema.dct"> commented out. I don't know the value 'schema.dct' for the rel-attribute -->
+		<meta content="https://example.com/minimal" name="id"> <!-- the value of the content attribute will of course change per article -->
+		<meta content="http://data.elsevier.com/schema/led/" name="dct:conformsTo">
+		<script type="application/ld+json">
+			{
+            "@context":[
+            		"https://data.elsevier.com/schema/led/",
+            		{
+            			"doc": "https://example.com/minimal#",
+            			"dct": "http://purl.org/dc/terms/",
+            			"ex": "http://vocabulary.example.com/document/features"}],
+            "@graph": [
+          {
+            "@id": "https://example.com/minimal",
+            "led:conformsTo": ["https://data.elsevier.com/schema/led/", "https://data.elsevier.com/schema/edm/"],
+            "edm:hasPart": ["doc:ec4s1", "doc:ec4p1"]
+          },
+          {
+            "@id": "doc:ec4s1",
+            "@type": "ex:introduction"
+          }
+        ]
+      }
+		</script>
+	<title>Untitled</title> <!-- required for HTML. Must default to something if it can be derived from source document -->
+	</head>
+	<body>
+		<section id="ec4s1">
+			<!--
+				Good practise to put a set of paragraphs (1 in this case) in a section.
+				Assuming that the members of the set belonging to the section can be derived from the source document.
+				In documents with multiple paragraphs and multiple pages/columns the section-borders may not always be trivial to derive from source document
+				If sections can not be derived from the source document in a first pass, then sections may be found (at a later moment) and expressed in the JSON, making use of whatever was derived from the source document
+			-->
+			<p id="ec4p1">Hello, world. I am a small and very uninteresting PDF ﬁle.</p>
+			<!--
+				Elements in the body receive a identifier that is unique in the document
+				(starts with a letter, must contain at least one character, does not contain any space characters)
+			-->
+		</section>
+	</body>
+</html>
