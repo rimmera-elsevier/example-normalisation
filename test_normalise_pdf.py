@@ -4,8 +4,8 @@ import normalise_pdf
 
 
 def test_can_generate_single_sentence_pdf_file_and_convert_to_normalised_html5():
-    file_name = "example_1.pdf"
-    content = "Hello, world. I am a small and very uninteresting PDF file."
+    file_name = "test_output/example_1.pdf"
+    content = "Hello, world. I am a small and very uninteresting PDF."
 
     generate_pdf.generate_pdf_file_with_simple_content(
         file_name,
@@ -19,4 +19,4 @@ def test_can_generate_single_sentence_pdf_file_and_convert_to_normalised_html5()
     section = soup.section
     print(section.string)
     print(type(section.string))
-    assert content in str(section.string) # Failing because of fi glyph match??
+    assert content in str(section.string)
