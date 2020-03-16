@@ -1,11 +1,23 @@
-import generate_pdf
 import normalise_pdf
 
 from bs4 import BeautifulSoup
+from pylatex import Document
+
+
+def generate_pdf_file_with_simple_content(file_name: str, content: str) -> None:
+
+    pdf_file = Document(
+        default_filepath=file_name,
+        page_numbers=False
+    )
+
+    pdf_file.append(content)
+    pdf_file.generate_tex()
+    pdf_file.generate_pdf(clean_tex=False)
 
 
 def _generate_pdf_normalise_and_read_back_html_content(file_name: str, content: str):
-    generate_pdf.generate_pdf_file_with_simple_content(
+    generate_pdf_file_with_simple_content(
         file_name,
         content
     )
@@ -14,7 +26,7 @@ def _generate_pdf_normalise_and_read_back_html_content(file_name: str, content: 
 
 
 def test_can_generate_single_sentence_pdf_file_and_convert_to_normalised_html5():
-    file_name = "test_output/example_1.pdf"
+    file_name = "test_output/example_1"
     content = "Hello, world."
     soup = _generate_pdf_normalise_and_read_back_html_content(file_name, content)
 
