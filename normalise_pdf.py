@@ -4,7 +4,7 @@ from dominate.util import raw
 from pdfminer.high_level import extract_text
 
 
-def generate_normalised_html_from_pdf_file(pdf_file_name):
+def generate_normalised_html(pdf_file_name):
     text_content = extract_text(pdf_file_name)
     html_doc = dominate.document(title="")
 

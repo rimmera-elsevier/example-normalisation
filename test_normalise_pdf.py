@@ -1,34 +1,65 @@
-import normalise_pdf
+import unittest
 
 from bs4 import BeautifulSoup
 from pylatex import Document
 
-
-def generate_pdf_file_with_simple_content(file_name: str, content: str) -> None:
-
-    pdf_file = Document(
-        default_filepath=file_name,
-        page_numbers=False
-    )
-
-    pdf_file.append(content)
-    pdf_file.generate_tex()
-    pdf_file.generate_pdf(clean_tex=False)
+from normalise_pdf import generate_normalised_html
 
 
-def _generate_pdf_normalise_and_read_back_html_content(file_name: str, content: str):
-    generate_pdf_file_with_simple_content(
-        file_name,
-        content
-    )
-    normalised_html = normalise_pdf.generate_normalised_html_from_pdf_file(file_name)
-    return BeautifulSoup(normalised_html, 'html.parser')
+class PDFNormalisationTest(unittest.TestCase):
+    output_dir = "test_output"
 
+    @staticmethod
+    def strip_pdf_file_extension(file_name: str) -> str:
+        return file_name.split(".")[0]
 
-def test_can_generate_single_sentence_pdf_file_and_convert_to_normalised_html5():
-    file_name = "test_output/example_1"
-    content = "Hello, world."
-    soup = _generate_pdf_normalise_and_read_back_html_content(file_name, content)
+    def current_test_method_name(self):
+        return self.id().split(".")[1]
 
-    section = soup.section
-    assert content in str(section.string)
+    def setUp(self) -> None:
+
+        output_stem = "{}/{}".format(
+            self.output_dir,
+            self.current_test_method_name()
+        )
+
+        self.output_pdf = "{}.pdf".format(output_stem)
+        self.output_html = "{}.html".format(output_stem)
+
+    def test_single_sentence_pdf_no_glyphs(self):
+        content = "Hello, world."
+
+        pdf_file = Document(
+            default_filepath=self.strip_pdf_file_extension(self.output_pdf),
+            page_numbers=False
+        )
+
+        pdf_file.append(content)
+        pdf_file.generate_tex()
+        pdf_file.generate_pdf(clean_tex=False)
+
+        normalised_html = generate_normalised_html(self.output_pdf)
+        soup = BeautifulSoup(normalised_html, 'html.parser')
+        section = soup.section
+
+        assert content in str(section.string)
+
+    def test_single_sentence_pdf_with_fi_glyph(self):
+
+        # LaTex font renders the fi in file as a single character
+        content = "Hello, world. I am a PDF file"
+
+        pdf_file = Document(
+            default_filepath=self.strip_pdf_file_extension(self.output_pdf),
+            page_numbers=False
+        )
+
+        pdf_file.append(content)
+        pdf_file.generate_tex()
+        pdf_file.generate_pdf(clean_tex=False)
+
+        normalised_html = generate_normalised_html(self.output_pdf)
+        soup = BeautifulSoup(normalised_html, 'html.parser')
+        section = soup.section
+
+        assert content in str(section.string)
