@@ -14,7 +14,7 @@ class PDFNormalisationTest(unittest.TestCase):
         return file_name.split(".")[0]
 
     def current_test_method_name(self):
-        return self.id().split(".")[1]
+        return self.id().split(".")[2]
 
     def setUp(self) -> None:
 
@@ -46,7 +46,8 @@ class PDFNormalisationTest(unittest.TestCase):
 
     def test_single_sentence_pdf_with_fi_glyph(self):
 
-        # LaTex font renders the fi in file as a single character
+        # LaTex font renders the fi in file as a single glyph, which is then read back as a
+        # single unicode character.
         content = "Hello, world. I am a PDF file"
 
         pdf_file = Document(
